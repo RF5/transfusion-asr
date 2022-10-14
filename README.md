@@ -25,7 +25,7 @@ Authors:
 We use torch hub to make model loading very easy -- no cloning of the repo needed!
 The steps to perform ASR inference with the trained checkpoint is simple:
 
-1. **Instal pip dependancies**: ensure `torch`, `torchaudio`, `numpy`, `omegaconf`, `fairseq`, `fastprogress`, `jiwer`, and `pandas` are installed (for full training dependencies see `requirements.txt`).
+1. **Instal pip dependancies**: ensure `torch`, `torchaudio`, `numpy`, `omegaconf`, `fairseq`, `fastprogress`, `jiwer`, and `pandas` are installed (for full training dependencies see `requirements.txt`). Make sure you are using **python 3.10 or above**, this repo uses certain new features of python 3.10.
 2. **Load models**: load the trained TransFusion model and frozen WavLM encoder:
   ```python
   import torch
