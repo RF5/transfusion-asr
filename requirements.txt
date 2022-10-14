@@ -1,0 +1,9 @@
+torch
+torchaudio
+numpy
+omegaconf
+fastprogress
+pandas
+jiwer
+deepspeed
+matplotlib
