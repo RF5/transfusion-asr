@@ -6,7 +6,7 @@ The trained checkpoints are available under the ['Releases' tab](https://github.
 Links:
 
 - arXiv: [https://arxiv.org/abs/2210.07677](https://arxiv.org/abs/2210.07677)
-- SACAIR 2022 proceedings: coming soon
+- SACAIR 2022 proceedings: https://2022.sacair.org.za/proceedings/
 
 ![TransFusion architecture](./TransFusion.png)
 
