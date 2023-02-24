@@ -173,13 +173,12 @@ Parts of code for this project are adapted from the following repositories -- pl
 
 ## Citation
 
-Will be updated after SACAIR proceedings are published. 
 
-<!-- ```bibtex
+```bibtex
 @inproceedings{baas2022transfusion,
   title={TransFusion: Transcribing Speech with Multinomial Diffusion},
   author={Baas, Matthew and Eloff, Kevin and Kamper, Herman},
   booktitle={SACAIR},
   year=2022
 }
-``` -->
+```
