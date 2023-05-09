@@ -14,9 +14,11 @@ Figure: the TransFusion diagram showing both training and inference, as given in
 
 Authors:
 
-- [Matthew Baas](https://rf5.github.io/)
-- [Kevin Eloff](https://kevineloff.github.io/)
+- [Matthew Baas](https://rf5.github.io/)*
+- [Kevin Eloff](https://kevineloff.github.io/)*
 - [Herman Kamper](https://www.kamperh.com/)
+
+*equal contribution
 
 ---
 
