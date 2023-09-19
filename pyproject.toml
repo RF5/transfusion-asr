@@ -1,0 +1,10 @@
+[project]
+name = "transfusion"
+version = "0.1.0"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["transfusion", "wavlm"]
