@@ -1,6 +1,8 @@
 [project]
 name = "transfusion"
 version = "0.1.0"
+readme = "README.md"
+description = "TransFusion: Transcribing Speech with Multinomial Diffusion"
 
 [build-system]
 requires = ["setuptools"]

@@ -29,36 +29,36 @@ The steps to perform ASR inference with the trained checkpoint is simple:
 
 1. **Instal pip dependancies**: ensure `torch`, `torchaudio`, `numpy`, `omegaconf`, `fairseq`, `fastprogress`, `jiwer`, and `pandas` are installed (for full training dependencies see `requirements.txt`). Make sure you are using **python 3.10 or above**, this repo uses certain new features of python 3.10.
 2. **Load models**: load the trained TransFusion model and frozen WavLM encoder:
-  ```python
-  import torch
-  import torchaudio
+```python
+import torch
+import torchaudio
 
-  device = 'cpu' # or 'cuda' if you have enough GPU memory.
-  wavlm = torch.hub.load('RF5/transfusion-asr', 'wavlm_large', device=device)
-  transfusion = torch.hub.load('RF5/transfusion-asr', 'transfusion_small_462k', device=device)
-  ```
+device = 'cpu' # or 'cuda' if you have enough GPU memory.
+wavlm = torch.hub.load('RF5/transfusion-asr', 'wavlm_large', device=device)
+transfusion = torch.hub.load('RF5/transfusion-asr', 'transfusion_small_462k', device=device)
+```
 3. **Compute WavLM features**: load a 16kHz waveform and compute the WavLM features:
 
-  ```python
-  path = '<path to arbitrary 16kHz waveform>.wav'
-  x, sr = torchaudio.load(pth)
-  assert sr == 16000
-  # get weighted WavLM features:
-  features = wavlm.extract_transfusion_features(x.to(device), wavlm) # (seq_len, dim)
-  ```
+```python
+path = '<path to arbitrary 16kHz waveform>.wav'
+x, sr = torchaudio.load(pth)
+assert sr == 16000
+# get weighted WavLM features:
+features = wavlm.extract_transfusion_features(x.to(device), wavlm) # (seq_len, dim)
+```
 4. **Predict transcript**: Perform multinomial diffusion using all the additional techniques from the paper:
 
-  ```python
-  pred_inds, pred_text = transfusion.perform_simple_inference(
-      transfusion, # pass in model to use in diffusion
-      features[None],  # add batch dimension to features
-      transfusion.diffuser, # diffuser containing diffusion parameters
-      transfusion.vocab, # vocab for converting indices to text / text to indices
-      transfusion.cfg # model/diffusion config dict
-  )
-  print(pred_text)
-  # prints out the predicted transcript of your utterance!
-  ```
+```python
+pred_inds, pred_text = transfusion.perform_simple_inference(
+    transfusion, # pass in model to use in diffusion
+    features[None],  # add batch dimension to features
+    transfusion.diffuser, # diffuser containing diffusion parameters
+    transfusion.vocab, # vocab for converting indices to text / text to indices
+    transfusion.cfg # model/diffusion config dict
+)
+print(pred_text)
+# prints out the predicted transcript of your utterance!
+```
 
 That's it, trivial!
 You can modify the diffusion parameters using the `DSH` class in `transfusion/score.py` and in the diffuser config. By default it uses the optimal settings found in the paper. 
@@ -89,33 +89,33 @@ Before training, one needs to prepare the data. The steps to do that for the Lib
 
 2. Then extract the WavLM features with the `extract.py` script:
 
-  ```
-  usage: python -m wavlm.extract [--librispeech_path PATH/TO/LIBRESPEECH] [--ckpt_path PATH/TO/WAVLM_LARGE_CKPT] [--out_path PATH/TO/FEAT]
+```
+usage: python -m wavlm.extract [--librispeech_path PATH/TO/LIBRESPEECH] [--ckpt_path PATH/TO/WAVLM_LARGE_CKPT] [--out_path PATH/TO/FEAT]
 
-  required arguments:
-      --librispeech_path          root path of librispeech dataset
-      --out_path                  target directory to save WavLM features into
-      --ckpt_path                 path to pretrained WavLM checkpoint
+required arguments:
+    --librispeech_path          root path of librispeech dataset
+    --out_path                  target directory to save WavLM features into
+    --ckpt_path                 path to pretrained WavLM checkpoint
 
-  optional arguments:
-      --seed 
-      --device                    
-  ```
+optional arguments:
+    --seed 
+    --device                    
+```
 
 3. Split data into train, validation, and test splits using `split_data.py` script:
 
-  ```
-  usage: split_data.py --librispeech_path LIBRISPEECH_PATH --ls_wavlm_path LS_WAVLM_PATH [--include_test]
+```
+usage: split_data.py --librispeech_path LIBRISPEECH_PATH --ls_wavlm_path LS_WAVLM_PATH [--include_test]
 
-  Generate train & valid csvs from dataset directories
+Generate train & valid csvs from dataset directories
 
-  options:
-    --librispeech_path LIBRISPEECH_PATH
-                          path to root of librispeech dataset
-    --ls_wavlm_path LS_WAVLM_PATH
-                          path to root of WavLM features extracted using extract.py
-    --include_test        include processing and saving test.csv for test subsets
-  ```
+options:
+  --librispeech_path LIBRISPEECH_PATH
+                        path to root of librispeech dataset
+  --ls_wavlm_path LS_WAVLM_PATH
+                        path to root of WavLM features extracted using extract.py
+  --include_test        include processing and saving test.csv for test subsets
+```
   
   Running this will save the train/valid/test csv files and a vocabulary dict as `vocab.pt` into a `./splits/` folder.
 
