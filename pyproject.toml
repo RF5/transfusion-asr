@@ -1,5 +1,5 @@
 [project]
-name = "transfusion"
+name = "transfusion-asr"
 version = "0.1.0"
 readme = "README.md"
 description = "TransFusion: Transcribing Speech with Multinomial Diffusion"
